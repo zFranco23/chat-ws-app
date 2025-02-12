@@ -1,49 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
+import { useState } from "react";
+import { useChat } from "../hooks/use-chat-context";
 import VoiceTranscription from "./voice-transcription";
 
-type Props = {
-  input: string;
-  setInput: (value: string) => void;
-  sendMessage: () => void;
-  handleListening: () => void;
-  isListening: boolean;
-};
+const MessageInput = () => {
+  const [text, setText] = useState<string>("");
 
-const MessageInput = ({
-  input,
-  setInput,
-  sendMessage,
-  handleListening,
-  isListening,
-}: Props) => {
+  const { handleSendMessage, startTyping, stopTyping } = useChat();
+
+  const sendGlobalMessage = () => {
+    handleSendMessage(text);
+    setText("");
+  };
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      sendMessage();
+      sendGlobalMessage();
     }
   };
+
   return (
     <div className="flex gap-3 items-center">
       <Input
         type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
         placeholder="Send a message..."
         onKeyUp={handleKeyUp}
+        onFocus={startTyping}
+        onBlur={stopTyping}
         className="flex-1 px-4 py-2 border rounded-full shadow-sm focus:ring-2 focus:ring-blue-500"
       />
       <Button
-        onClick={sendMessage}
+        onClick={sendGlobalMessage}
         className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full"
       >
         <Send size={18} />
       </Button>
 
-      <VoiceTranscription
-        handleListening={handleListening}
-        isListening={isListening}
-      />
+      <VoiceTranscription setMessage={setText} />
     </div>
   );
 };

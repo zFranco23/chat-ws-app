@@ -5,3 +5,10 @@ export type Message = {
   username: string;
   timestamp: string;
 };
+
+export type RoomAction = "join" | "leave";
+export interface RoomHistorial {
+  room: string;
+  username: string;
+  action: RoomAction;
+}

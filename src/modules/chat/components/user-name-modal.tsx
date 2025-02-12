@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -7,16 +6,29 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useChat } from "../hooks/use-chat-context";
+import { useState } from "react";
 
-type Props = {
-  setUsername: (name: string) => void;
-};
+interface UserModalProps {
+  onSave?: () => void;
+}
+const UserModal = ({ onSave }: UserModalProps) => {
+  const { setUsername, username } = useChat();
+  const [name, setName] = useState<string>(username);
 
-const UserModal = ({ setUsername }: Props) => {
-  const [name, setName] = useState<string>("");
+  const setGlobalUserName = () => {
+    setUsername(name.trim() || "Anonymus");
+    if (onSave) onSave();
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      setGlobalUserName();
+    }
+  };
 
   return (
-    <Dialog open={true}>
+    <Dialog open>
       <DialogContent className="text-center">
         <DialogHeader>
           <DialogTitle>Your name:</DialogTitle>
@@ -25,9 +37,10 @@ const UserModal = ({ setUsername }: Props) => {
           placeholder="Optional (default: Anonymus)"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onKeyUp={handleKeyUp}
         />
-        <Button onClick={() => setUsername(name.trim() || "Anonymus")}>
-          Entrar
+        <Button disabled={name.trim().length === 0} onClick={setGlobalUserName}>
+          Save
         </Button>
       </DialogContent>
     </Dialog>

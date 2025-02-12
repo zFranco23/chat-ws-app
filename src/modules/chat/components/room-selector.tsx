@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type Props = {
-  joinRoom: (roomName: string) => void;
-};
+const RoomSelector = () => {
+  const router = useRouter();
+  const [roomName, setRoomName] = useState<string>("");
 
-const RoomSelector = ({ joinRoom }: Props) => {
-  const [roomName, setRoomName] = useState("");
+  const goToRoom = () => {
+    router.push(`/room/${roomName.trim()}`);
+  };
 
   return (
     <div className="flex flex-col items-center space-y-3 p-4">
@@ -17,7 +19,7 @@ const RoomSelector = ({ joinRoom }: Props) => {
         value={roomName}
         onChange={(e) => setRoomName(e.target.value)}
       />
-      <Button onClick={() => joinRoom(roomName)} disabled={!roomName.trim()}>
+      <Button onClick={goToRoom} disabled={!roomName.trim()}>
         Join
       </Button>
     </div>
