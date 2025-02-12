@@ -1,4 +1,4 @@
-import { useChat } from "../hooks/use-chat-context";
+import { useChat } from "@/modules/chat/hooks/use-chat-context";
 import { motion } from "framer-motion";
 
 const UsersTyping = () => {

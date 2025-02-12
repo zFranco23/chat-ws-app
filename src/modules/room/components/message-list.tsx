@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { motion } from "framer-motion";
-import { useChat } from "../hooks/use-chat-context";
+import { useChat } from "../../chat/hooks/use-chat-context";
 import usePrevious from "@/hooks/use-previous";
 import { useEffect } from "react";
 import { toast } from "sonner";

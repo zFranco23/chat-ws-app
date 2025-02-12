@@ -1,6 +1,6 @@
 "use client";
 
-import RoomChat from "@/modules/chat/components/room-chat";
+import RoomChat from "../components/room-chat";
 import { useEffect } from "react";
 import { useRoom } from "../hooks/use-room";
 import { Card, CardContent } from "@/components/ui/card";

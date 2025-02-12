@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import MessageList from "./message-list";
 import MessageInput from "./message-input";
-import ChatDisclaimerDialog from "./chat-disclaimer-dialog";
+import ChatDisclaimerDialog from "@/modules/chat/components/chat-disclaimer-dialog";
 
 interface RoomChatProps {
   roomId: string;

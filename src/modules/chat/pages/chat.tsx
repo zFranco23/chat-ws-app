@@ -1,6 +1,6 @@
 "use client";
 
-import RoomSelector from "../components/room-selector";
+import RoomSelector from "@/modules/room/components/room-selector";
 import UserModal from "../components/user-name-modal";
 
 import { Card, CardContent } from "@/components/ui/card";

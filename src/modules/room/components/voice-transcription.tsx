@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Mic } from "lucide-react";
-import { useChat } from "../hooks/use-chat-context";
+import { useChat } from "@/modules/chat/hooks/use-chat-context";
 import { useState } from "react";
 
 interface VoiceTranscriptionProps {
@@ -16,7 +16,9 @@ const VoiceTranscription = ({ setMessage }: VoiceTranscriptionProps) => {
     } else {
       setIsListening(true);
 
+      // @ts-expect-error SpeechRecognition is not defined in the window object
       const recognition = new (window.SpeechRecognition ||
+        // @ts-expect-error SpeechRecognition is not defined in the window object
         window.webkitSpeechRecognition)();
       recognition.lang = "es-ES";
       recognition.start();
