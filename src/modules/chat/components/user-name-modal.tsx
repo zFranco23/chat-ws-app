@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useChat } from "../hooks/use-chat-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UserModalProps {
   onSave?: () => void;
@@ -30,6 +30,10 @@ const UserModal = ({ onSave }: UserModalProps) => {
       setGlobalUserName();
     }
   };
+
+  useEffect(() => {
+    if (username) setName(username);
+  }, [username]);
 
   return (
     <Dialog open={open}>
