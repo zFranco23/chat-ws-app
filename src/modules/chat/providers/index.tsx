@@ -13,7 +13,9 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
 
   const [room, setRoom] = useState<string>("");
   const [username, setUsername] = useState<string>(
-    localStorage.getItem("username") ?? ""
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("username") ?? ""
+      : ""
   );
 
   const [usersTyping, setUsersTyping] = useState<RoomHistorial[]>([]);
