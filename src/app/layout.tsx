@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/ navbar";
 import ChatProvider from "@/modules/chat/providers";
 
 import { Toaster } from "@/components/ui/sonner";
+import UserModal from "@/modules/chat/components/user-name-modal";
 
 export const metadata: Metadata = {
   title: "Roomly app",
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={nunito.className}>
         <ChatProvider>
+          <UserModal />
           <Navbar />
           {children}
           <Toaster />

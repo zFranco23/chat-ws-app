@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,12 +15,14 @@ interface UserModalProps {
   onSave?: () => void;
 }
 const UserModal = ({ onSave }: UserModalProps) => {
+  const [open, setOpen] = useState<boolean>(true);
   const { setUsername, username } = useChat();
   const [name, setName] = useState<string>(username);
 
   const setGlobalUserName = () => {
     setUsername(name.trim() || "Anonymus");
     if (onSave) onSave();
+    setOpen(false);
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -28,7 +32,7 @@ const UserModal = ({ onSave }: UserModalProps) => {
   };
 
   return (
-    <Dialog open>
+    <Dialog open={open}>
       <DialogContent className="text-center">
         <DialogHeader>
           <DialogTitle>Your name:</DialogTitle>

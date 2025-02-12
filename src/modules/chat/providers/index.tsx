@@ -20,9 +20,13 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
 
   const [roomHistorial, setRoomHistorial] = useState<RoomHistorial[]>([]);
 
+  console.log(socketId);
+
   useEffect(() => {
-    const socketId = socket.id;
-    setSocketId(socketId ?? "");
+    socket.on("connect", () => {
+      const socketId = socket.id;
+      setSocketId(socketId ?? "");
+    });
 
     socket.on("receive-message", (message: Message) => {
       setMessages((prev) => [...prev, message]);
