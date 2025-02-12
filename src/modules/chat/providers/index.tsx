@@ -5,7 +5,7 @@ import { ChatContext } from "../context/chat";
 import { io } from "socket.io-client";
 import { Message, RoomHistorial } from "../types/chat";
 
-const socket = io("http://localhost:5000");
+const socket = io(process.env.NEXT_PUBLIC_WS_SERVER_API_URL);
 
 const ChatProvider = ({ children }: PropsWithChildren) => {
   const [socketId, setSocketId] = useState<string>("");
